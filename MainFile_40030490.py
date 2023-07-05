@@ -52,7 +52,7 @@ predicted_y = reg_res.predict(x_list)  # predicated y list
 print("Average prediction error: ", abs(mean(predicted_y) - mean(y_list)))
 
 
-print("\n||| -------------------------- Step 3: Check an example ------------------------- |||")
+print("\n||| -------------------------- Step 3: Solve an example ------------------------- |||")
 # You can use this numbers for example: 1, 20, 25, 24, 25, 36, 17, 23, 12, 9, 19, 48
 x_for_predict = [[]]
 for header in x_list:
