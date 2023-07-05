@@ -1,5 +1,5 @@
+import numpy as np
 import pandas as pd
-from statistics import mean
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
@@ -48,8 +48,11 @@ for header in body_measures.columns:
         i += 1
 print("-----------------------------------")
 print("Intercept of regression line is: ", reg_res.intercept_)
-predicted_y = reg_res.predict(x_list)  # predicated y list
-print("Average prediction error: ", abs(mean(predicted_y) - mean(y_list)))
+
+# Predict Ages and calculate error -------------------------------------------------
+predicted_y = reg_res.predict(x_list)  # predicated y list (y is list Ages)
+rmse = np.sqrt(np.mean(np.square(predicted_y - y_list)))  # root mean square error
+print("Average prediction error: ", rmse, " ~= ", round(rmse))
 
 
 print("\n||| -------------------------- Step 3: Solve an example ------------------------- |||")
@@ -62,23 +65,22 @@ print("An example to prediction: ", abs(predicted_example), " ~= ", round(abs(pr
 
 
 print("\n||| -------------------------- Step 4: Draw the plots --------------------------- |||")
-i = 0  # index of coefficients (again:)
 for header in x_list:
     plt.grid()
+    # New regression for per input
+    reg_res = LinearRegression()
+    reg_input = x_list[header].values.reshape(-1, 1)
+    reg_res.fit(reg_input, y_list)
+    y_reg_line = reg_res.coef_ * x_list[header] + reg_res.intercept_
+    # The plot inputs
     plt.scatter(x_list[header], y_list, color="purple")
     plt.scatter(x_list[header], predicted_y, color="orange")
-    y_reg_line = reg_res.coef_[i] * x_list[header] + reg_res.intercept_
     plt.plot(x_list[header], y_reg_line, color="red")
+    # The plot styles
     plt.xlabel(header, fontsize=15)
     plt.ylabel("Age", fontsize=15)
+    plt.legend(["Original", "Predicted", "Regression line"])
     plt.show()
-    i += 1
-
-print("The guide of chart colors ...")
-print("Purple: it shows the original values of y;")
-print("Orange: it shows the predicted values of y;")
-print("Red: it shows the diagram of linear regression;")
-print(">>> Note: y is depended variable, which is Age here;")
 
 
 print("\n||| ---------------------------------- The End ---------------------------------- |||")
