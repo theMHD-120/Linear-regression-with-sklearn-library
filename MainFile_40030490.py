@@ -32,7 +32,7 @@ print('\n3) Statistical information -------------------')
 print(body_measures.describe())
 
 
-print("\n||| ----------------------- Step 2: Make regression line ------------------------ |||")
+print("\n||| ---------------------- Step 2: Create regression line ----------------------- |||")
 x_list = body_measures[
     ["Gender", "HeadCircumference", "ShoulderWidth", "ChestWidth", "Belly", "Waist", "Hips",
      "ArmLength", "ShoulderToWaist", "WaistToKnee", "LegLength", "TotalHeight"]]
